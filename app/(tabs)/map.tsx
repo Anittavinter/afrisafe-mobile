@@ -1,45 +1,167 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import * as Location from 'expo-location';
+
+const { width } = Dimensions.get('window');
+
+interface SafeSpace {
+  id: number;
+  name: string;
+  type: string;
+  distance: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+}
 
 export default function SafeSpacesMap() {
-  const safeSpaces = [
-    { id: 1, name: 'Central Police Station', type: 'Police', distance: '0.5 km' },
-    { id: 2, name: 'Kenyatta Hospital', type: 'Hospital', distance: '1.2 km' },
-    { id: 3, name: 'City Mall Security', type: 'Security', distance: '2.1 km' },
-  ];
+  const router = useRouter();
+  const [userLocation, setUserLocation] = useState<Location.LocationObject | null>(null);
+  const [safeSpaces, setSafeSpaces] = useState<SafeSpace[]>([
+    { 
+      id: 1, 
+      name: 'Central Police Station', 
+      type: 'Police', 
+      distance: '0.5 km',
+      latitude: -1.2863,
+      longitude: 36.8172,
+      address: 'University Way, Nairobi'
+    },
+    { 
+      id: 2, 
+      name: 'Kenyatta Hospital', 
+      type: 'Hospital', 
+      distance: '1.2 km',
+      latitude: -1.3006,
+      longitude: 36.8073,
+      address: 'Hospital Road, Nairobi'
+    },
+    { 
+      id: 3, 
+      name: 'City Mall Security', 
+      type: 'Security', 
+      distance: '2.1 km',
+      latitude: -1.2921,
+      longitude: 36.8219,
+      address: 'Moi Avenue, Nairobi'
+    },
+  ]);
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
+
+  const getUserLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'Location access is needed to show nearby safe spaces.');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      setUserLocation(location);
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }
+  };
+
+  const handleAddSafeSpace = () => {
+    router.push('/add-safe-space' as any);
+  };
+
+  const handleSpacePress = (space: SafeSpace) => {
+    router.push({
+      pathname: '/map-detail' as any,
+      params: { 
+        id: space.id.toString(),
+        name: space.name,
+        type: space.type,
+        address: space.address,
+        latitude: space.latitude.toString(),
+        longitude: space.longitude.toString()
+      }
+    });
+  };
+
+  const getMarkerColor = (type: string) => {
+    switch (type) {
+      case 'Police': return '#1E40AF';
+      case 'Hospital': return '#DC2626';
+      case 'Security': return '#059669';
+      default: return '#6B7280';
+    }
+  };
+
+  const getIconName = (type: string) => {
+    switch (type) {
+      case 'Police': return 'shield';
+      case 'Hospital': return 'medical';
+      case 'Security': return 'business';
+      default: return 'location';
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Safe Spaces</Text>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={handleAddSafeSpace}>
           <Ionicons name="add" size={24} color="#1E40AF" />
         </TouchableOpacity>
       </View>
       
-      <View style={styles.mapPlaceholder}>
-        <Ionicons name="map" size={80} color="#6B7280" />
-        <Text style={styles.mapText}>Map View Coming Soon</Text>
-        <Text style={styles.mapSubtext}>
-          Interactive map showing verified safe spaces, police stations, hospitals, and community centers near you.
-        </Text>
+      <View style={styles.mapContainer}>
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          initialRegion={{
+            latitude: userLocation?.coords.latitude || -1.2921,
+            longitude: userLocation?.coords.longitude || 36.8219,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+        >
+          {safeSpaces.map((space) => (
+            <Marker
+              key={space.id}
+              coordinate={{
+                latitude: space.latitude,
+                longitude: space.longitude,
+              }}
+              title={space.name}
+              description={`${space.type} • ${space.address}`}
+              pinColor={getMarkerColor(space.type)}
+              onPress={() => handleSpacePress(space)}
+            />
+          ))}
+        </MapView>
       </View>
 
       <View style={styles.nearbySection}>
         <Text style={styles.sectionTitle}>Nearby Safe Spaces</Text>
         {safeSpaces.map((space) => (
-          <TouchableOpacity key={space.id} style={styles.spaceItem}>
-            <View style={styles.spaceIcon}>
+          <TouchableOpacity 
+            key={space.id} 
+            style={styles.spaceItem}
+            onPress={() => handleSpacePress(space)}
+          >
+            <View style={[styles.spaceIcon, { backgroundColor: getMarkerColor(space.type) }]}>
               <Ionicons 
-                name={space.type === 'Police' ? 'shield' : space.type === 'Hospital' ? 'medical' : 'business'} 
+                name={getIconName(space.type) as any} 
                 size={24} 
-                color="#1E40AF" 
+                color="#FFFFFF" 
               />
             </View>
             <View style={styles.spaceDetails}>
               <Text style={styles.spaceName}>{space.name}</Text>
               <Text style={styles.spaceType}>{space.type} • {space.distance}</Text>
+              <Text style={styles.spaceAddress}>{space.address}</Text>
             </View>
             <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
           </TouchableOpacity>
@@ -73,33 +195,23 @@ const styles = StyleSheet.create({
     color: '#1E40AF',
     letterSpacing: 1,
   },
-  addButton: {
-    padding: 4,
-  },
-  mapPlaceholder: {
-    backgroundColor: '#FFFFFF',
-    margin: 20,
-    padding: 40,
-    borderRadius: 16,
-    alignItems: 'center',
+  mapContainer: {
+    height: 300,
+    margin: 16,
+    borderRadius: 12,
+    overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.15,
     shadowRadius: 8,
-    elevation: 4,
+    elevation: 5,
   },
-  mapText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#374151',
-    marginTop: 16,
-    marginBottom: 8,
+  map: {
+    width: '100%',
+    height: '100%',
   },
-  mapSubtext: {
-    fontSize: 14,
-    color: '#6B7280',
-    textAlign: 'center',
-    lineHeight: 20,
+  addButton: {
+    padding: 4,
   },
   nearbySection: {
     paddingHorizontal: 20,
@@ -144,5 +256,11 @@ const styles = StyleSheet.create({
   spaceType: {
     fontSize: 14,
     color: '#6B7280',
+    marginBottom: 2,
+  },
+  spaceAddress: {
+    fontSize: 12,
+    color: '#9CA3AF',
+    fontStyle: 'italic',
   },
 });

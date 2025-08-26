@@ -1,76 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, Switch } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Profile() {
-  const [stealthMode, setStealthMode] = useState(false);
-  const [nightMode, setNightMode] = useState(false);
-
-  const handleStealthToggle = () => {
-    setStealthMode(!stealthMode);
-    Alert.alert(
-      stealthMode ? 'Stealth Mode Disabled' : 'Stealth Mode Enabled',
-      stealthMode 
-        ? 'App will appear normally' 
-        : 'App will disguise as a calculator. Enter 9118 to access safety features.',
-      [{ text: 'OK' }]
-    );
-  };
-
-  const handleNightToggle = () => {
-    setNightMode(!nightMode);
-    Alert.alert(
-      nightMode ? 'Night Mode Disabled' : 'Night Mode Enabled',
-      nightMode 
-        ? 'Standard safety features active' 
-        : 'Enhanced location tracking and silent alerts activated.',
-      [{ text: 'OK' }]
-    );
-  };
-
-  const menuItems = [
-    {
-      id: 'safety-settings',
-      icon: 'shield-checkmark',
-      title: 'Safety Settings',
-      subtitle: 'Configure emergency preferences',
-      color: '#059669',
-      onPress: () => Alert.alert('Safety Settings', 'Configure your emergency response settings.')
-    },
-    {
-      id: 'notifications',
-      icon: 'notifications',
-      title: 'Notifications',
-      subtitle: 'Alert preferences',
-      color: '#D97706',
-      onPress: () => Alert.alert('Notifications', 'Manage your notification preferences.')
-    },
-    {
-      id: 'privacy',
-      icon: 'lock-closed',
-      title: 'Privacy & Security',
-      subtitle: 'Data and location settings',
-      color: '#7C3AED',
-      onPress: () => Alert.alert('Privacy', 'Manage your privacy and security settings.')
-    },
-    {
-      id: 'help',
-      icon: 'help-circle',
-      title: 'Help & Support',
-      subtitle: 'Get help and report issues',
-      color: '#1E40AF',
-      onPress: () => Alert.alert('Help', 'Access help resources and contact support.')
-    },
-    {
-      id: 'about',
-      icon: 'information-circle',
-      title: 'About AfriSafe',
-      subtitle: 'Version 1.0.0',
-      color: '#6B7280',
-      onPress: () => Alert.alert('About', 'AfriSafe - Empowering women\'s safety across Africa.')
-    },
-  ];
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -80,70 +12,108 @@ export default function Profile() {
         </TouchableOpacity>
       </View>
       
-      <View style={styles.content}>
-        <View style={styles.profileSection}>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
-            <Ionicons name="person-circle" size={80} color="#1E40AF" />
+            <View style={styles.avatar}>
+              <Ionicons name="person" size={40} color="#FFFFFF" />
+            </View>
+            <TouchableOpacity style={styles.editAvatarButton}>
+              <Ionicons name="camera" size={16} color="#1E40AF" />
+            </TouchableOpacity>
           </View>
-          <Text style={styles.name}>AfriSafe User</Text>
-          <Text style={styles.subtitle}>Stay safe, stay empowered</Text>
+          <Text style={styles.userName}>Jane Doe</Text>
+          <Text style={styles.userLocation}>📍 Nairobi, Kenya</Text>
         </View>
 
-        <View style={styles.specialFeaturesCard}>
-          <Text style={styles.cardTitle}>Safety Features</Text>
-          
-          <View style={styles.featureItem}>
-            <View style={styles.featureInfo}>
-              <Ionicons name="calculator" size={24} color="#6B7280" />
-              <View style={styles.featureText}>
-                <Text style={styles.featureTitle}>Stealth Mode</Text>
-                <Text style={styles.featureSubtitle}>
-                  {stealthMode ? 'Active - App appears as calculator' : 'Inactive - Normal appearance'}
-                </Text>
-              </View>
-            </View>
-            <Switch
-              trackColor={{ false: '#F3F4F6', true: '#DBEAFE' }}
-              thumbColor={stealthMode ? '#1E40AF' : '#9CA3AF'}
-              value={stealthMode}
-              onValueChange={handleStealthToggle}
-            />
+        <View style={styles.statsContainer}>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>12</Text>
+            <Text style={styles.statLabel}>Safe Check-ins</Text>
           </View>
-
-          <View style={styles.featureItem}>
-            <View style={styles.featureInfo}>
-              <Ionicons name="moon" size={24} color="#FBBF24" />
-              <View style={styles.featureText}>
-                <Text style={styles.featureTitle}>Night Mode</Text>
-                <Text style={styles.featureSubtitle}>
-                  {nightMode ? 'Enhanced tracking active' : 'Standard mode'}
-                </Text>
-              </View>
-            </View>
-            <Switch
-              trackColor={{ false: '#F3F4F6', true: '#FEF3C7' }}
-              thumbColor={nightMode ? '#FBBF24' : '#9CA3AF'}
-              value={nightMode}
-              onValueChange={handleNightToggle}
-            />
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>3</Text>
+            <Text style={styles.statLabel}>Emergency Contacts</Text>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>8</Text>
+            <Text style={styles.statLabel}>Safe Spaces Added</Text>
           </View>
         </View>
 
         <View style={styles.menuSection}>
-          {menuItems.map((item) => (
-            <TouchableOpacity key={item.id} style={styles.menuItem} onPress={item.onPress}>
-              <View style={[styles.menuIcon, { backgroundColor: `${item.color}15` }]}>
-                <Ionicons name={item.icon as any} size={24} color={item.color} />
-              </View>
-              <View style={styles.menuText}>
-                <Text style={styles.menuTitle}>{item.title}</Text>
-                <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
-            </TouchableOpacity>
-          ))}
+          <TouchableOpacity style={styles.menuItem}>
+            <View style={styles.menuIconContainer}>
+              <Ionicons name="shield-checkmark" size={24} color="#10B981" />
+            </View>
+            <View style={styles.menuContent}>
+              <Text style={styles.menuTitle}>Safety Settings</Text>
+              <Text style={styles.menuSubtitle}>Emergency contacts, location sharing</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}>
+            <View style={styles.menuIconContainer}>
+              <Ionicons name="notifications" size={24} color="#F59E0B" />
+            </View>
+            <View style={styles.menuContent}>
+              <Text style={styles.menuTitle}>Notifications</Text>
+              <Text style={styles.menuSubtitle}>Safety alerts, check-in reminders</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}>
+            <View style={styles.menuIconContainer}>
+              <Ionicons name="lock-closed" size={24} color="#1E40AF" />
+            </View>
+            <View style={styles.menuContent}>
+              <Text style={styles.menuTitle}>Privacy & Security</Text>
+              <Text style={styles.menuSubtitle}>Data protection, stealth mode</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}>
+            <View style={styles.menuIconContainer}>
+              <Ionicons name="help-circle" size={24} color="#6B7280" />
+            </View>
+            <View style={styles.menuContent}>
+              <Text style={styles.menuTitle}>Help & Support</Text>
+              <Text style={styles.menuSubtitle}>FAQs, contact support</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.menuItem}>
+            <View style={styles.menuIconContainer}>
+              <Ionicons name="heart" size={24} color="#EF4444" />
+            </View>
+            <View style={styles.menuContent}>
+              <Text style={styles.menuTitle}>About AfriSafe</Text>
+              <Text style={styles.menuSubtitle}>Our mission, version 1.0.0</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
+          </TouchableOpacity>
         </View>
-      </View>
+
+        <View style={styles.emergencySection}>
+          <View style={styles.emergencyHeader}>
+            <Ionicons name="warning" size={24} color="#DC2626" />
+            <Text style={styles.emergencyTitle}>Emergency Resources</Text>
+          </View>
+          <Text style={styles.emergencyText}>
+            If you are in immediate danger, call 999 (Police) or 911 (Emergency Services) immediately.
+          </Text>
+          <TouchableOpacity style={styles.emergencyButton}>
+            <Ionicons name="call" size={20} color="#FFFFFF" />
+            <Text style={styles.emergencyButtonText}>Emergency Hotline: 999</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -177,29 +147,61 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
   },
-  profileSection: {
+  profileCard: {
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    marginBottom: 32,
+    padding: 24,
+    borderRadius: 16,
+    marginVertical: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
   },
   avatarContainer: {
+    position: 'relative',
     marginBottom: 16,
   },
-  name: {
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#1E40AF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  editAvatarButton: {
+    position: 'absolute',
+    right: -4,
+    bottom: -4,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+  },
+  userName: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#374151',
+    fontWeight: 'bold',
+    color: '#1F2937',
     marginBottom: 4,
   },
-  subtitle: {
+  userLocation: {
     fontSize: 16,
     color: '#6B7280',
   },
-  specialFeaturesCard: {
+  statsContainer: {
     backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 20,
     borderRadius: 16,
-    padding: 20,
     marginBottom: 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -207,43 +209,30 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 4,
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 16,
-  },
-  featureItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F3F4F6',
-  },
-  featureInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  statItem: {
     flex: 1,
+    alignItems: 'center',
   },
-  featureText: {
-    marginLeft: 16,
-    flex: 1,
+  statNumber: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1E40AF',
+    marginBottom: 4,
   },
-  featureTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#374151',
-    marginBottom: 2,
-  },
-  featureSubtitle: {
-    fontSize: 14,
+  statLabel: {
+    fontSize: 12,
     color: '#6B7280',
+    textAlign: 'center',
+  },
+  statDivider: {
+    width: 1,
+    height: 40,
+    backgroundColor: '#E5E7EB',
   },
   menuSection: {
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    overflow: 'hidden',
+    marginBottom: 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -257,25 +246,65 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#F3F4F6',
   },
-  menuIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+  menuIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#F3F4F6',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
   },
-  menuText: {
+  menuContent: {
     flex: 1,
   },
   menuTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#374151',
+    color: '#1F2937',
     marginBottom: 2,
   },
   menuSubtitle: {
     fontSize: 14,
     color: '#6B7280',
+  },
+  emergencySection: {
+    backgroundColor: '#FEF2F2',
+    padding: 20,
+    borderRadius: 16,
+    marginBottom: 40,
+    borderLeftWidth: 4,
+    borderLeftColor: '#DC2626',
+  },
+  emergencyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  emergencyTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#DC2626',
+    marginLeft: 12,
+  },
+  emergencyText: {
+    fontSize: 14,
+    color: '#7F1D1D',
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  emergencyButton: {
+    backgroundColor: '#DC2626',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  emergencyButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
   },
 });

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 interface EmergencyContact {
   id: number;
@@ -11,17 +12,14 @@ interface EmergencyContact {
 }
 
 export default function EmergencyContacts() {
+  const router = useRouter();
   const [contacts, setContacts] = useState<EmergencyContact[]>([
     { id: 1, name: 'Mom', relationship: 'Mother', phone: '+254 712 345 678', isPrimary: true },
     { id: 2, name: 'Sarah K.', relationship: 'Best Friend', phone: '+254 723 456 789' },
   ]);
 
   const handleAddContact = () => {
-    Alert.alert(
-      'Add Emergency Contact',
-      'This feature will allow you to add trusted contacts who will receive alerts.',
-      [{ text: 'OK' }]
-    );
+    router.push('/add-contact' as any);
   };
 
   const handleTestAlert = (contact: EmergencyContact) => {
@@ -32,7 +30,13 @@ export default function EmergencyContacts() {
         { text: 'Cancel', style: 'cancel' },
         { 
           text: 'Send Test', 
-          onPress: () => Alert.alert('Test Sent', `Test alert sent to ${contact.name}`)
+          onPress: () => {
+            const message = "I'm using AfriSafe - this is a test of my emergency alert system. Please confirm you received this message.";
+            const phoneNumber = contact.phone.replace(/\s/g, '');
+            Linking.openURL(`sms:${phoneNumber}?body=${encodeURIComponent(message)}`).catch(() => {
+              Alert.alert('Error', 'Unable to send message');
+            });
+          }
         }
       ]
     );
@@ -44,7 +48,15 @@ export default function EmergencyContacts() {
       `Call ${contact.name} at ${contact.phone}?`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Call', onPress: () => console.log(`Calling ${contact.phone}`) }
+        { 
+          text: 'Call', 
+          onPress: () => {
+            const phoneNumber = contact.phone.replace(/\s/g, '');
+            Linking.openURL(`tel:${phoneNumber}`).catch(() => {
+              Alert.alert('Error', 'Unable to make phone call');
+            });
+          }
+        }
       ]
     );
   };
