@@ -9,7 +9,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false, title: '' }} />
         <Stack.Screen name="add-safe-space" options={{ 
           title: 'Add Safe Space',
           headerStyle: { backgroundColor: '#1E40AF' },
@@ -27,6 +27,46 @@ export default function RootLayout() {
           headerStyle: { backgroundColor: '#1E40AF' },
           headerTintColor: '#FFFFFF',
           headerBackTitle: 'Back',
+        }} />
+        <Stack.Screen name="safety-settings" options={{ 
+          title: 'Safety Settings',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Profile',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="notifications" options={{ 
+          title: 'Notifications',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Profile',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="privacy-security" options={{ 
+          title: 'Privacy & Security',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Profile',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="help-support" options={{ 
+          title: 'Help & Support',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Profile',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="about-afrisafe" options={{ 
+          title: 'About AfriSafe',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Profile',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
         }} />
       </Stack>
       <StatusBar style="light" />

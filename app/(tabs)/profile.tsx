@@ -1,8 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Alert, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 export default function Profile() {
+  const handleEmergencyCall = () => {
+    Alert.alert(
+      'Emergency Call',
+      'Call 999 Emergency Hotline?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Call 999', onPress: () => Linking.openURL('tel:999') }
+      ]
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -44,7 +56,10 @@ export default function Profile() {
         </View>
 
         <View style={styles.menuSection}>
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity 
+            style={styles.menuItem}
+            onPress={() => router.push('/safety-settings' as any)}
+          >
             <View style={styles.menuIconContainer}>
               <Ionicons name="shield-checkmark" size={24} color="#10B981" />
             </View>
@@ -55,7 +70,10 @@ export default function Profile() {
             <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity 
+            style={styles.menuItem}
+            onPress={() => router.push('/notifications' as any)}
+          >
             <View style={styles.menuIconContainer}>
               <Ionicons name="notifications" size={24} color="#F59E0B" />
             </View>
@@ -66,7 +84,10 @@ export default function Profile() {
             <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity 
+            style={styles.menuItem}
+            onPress={() => router.push('/privacy-security' as any)}
+          >
             <View style={styles.menuIconContainer}>
               <Ionicons name="lock-closed" size={24} color="#1E40AF" />
             </View>
@@ -77,7 +98,10 @@ export default function Profile() {
             <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity 
+            style={styles.menuItem}
+            onPress={() => router.push('/help-support' as any)}
+          >
             <View style={styles.menuIconContainer}>
               <Ionicons name="help-circle" size={24} color="#6B7280" />
             </View>
@@ -88,7 +112,10 @@ export default function Profile() {
             <Ionicons name="chevron-forward" size={20} color="#9CA3AF" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity 
+            style={styles.menuItem}
+            onPress={() => router.push('/about-afrisafe' as any)}
+          >
             <View style={styles.menuIconContainer}>
               <Ionicons name="heart" size={24} color="#EF4444" />
             </View>
@@ -108,7 +135,10 @@ export default function Profile() {
           <Text style={styles.emergencyText}>
             If you are in immediate danger, call 999 (Police) or 911 (Emergency Services) immediately.
           </Text>
-          <TouchableOpacity style={styles.emergencyButton}>
+          <TouchableOpacity 
+            style={styles.emergencyButton}
+            onPress={handleEmergencyCall}
+          >
             <Ionicons name="call" size={20} color="#FFFFFF" />
             <Text style={styles.emergencyButtonText}>Emergency Hotline: 999</Text>
           </TouchableOpacity>
