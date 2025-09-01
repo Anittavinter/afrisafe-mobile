@@ -104,7 +104,7 @@ export default function SafetySettings() {
         icon="call"
         title="Emergency Call Settings"
         subtitle="Configure automatic calling preferences"
-        onPress={() => Alert.alert('Coming Soon', 'Emergency call settings will be available in the next update.')}
+        onPress={() => router.push('/emergency-call-settings' as any)}
       />
 
       <Text style={styles.sectionTitle}>Check-ins & Monitoring</Text>

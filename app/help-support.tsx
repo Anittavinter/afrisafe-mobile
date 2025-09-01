@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+
 
 export default function HelpSupport() {
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
@@ -174,21 +176,21 @@ export default function HelpSupport() {
         icon="document-text"
         title="User Guide"
         subtitle="Complete guide to using AfriSafe"
-        onPress={() => Alert.alert('User Guide', 'The complete user guide will be available in the next update.')}
+        onPress={() => router.push('/user-guide' as any)}
       />
 
       <ContactOption
         icon="shield-checkmark"
         title="Safety Tips"
         subtitle="Learn about personal safety"
-        onPress={() => Alert.alert('Safety Tips', 'Daily safety tips and resources will be available soon.')}
+        onPress={() => router.push('/safety-tips' as any)}
       />
 
       <ContactOption
         icon="people"
         title="Community Forum"
         subtitle="Connect with other users"
-        onPress={() => Alert.alert('Community', 'Community forum will be launched soon.')}
+        onPress={() => router.push('/community-forum' as any)}
       />
     </ScrollView>
   );

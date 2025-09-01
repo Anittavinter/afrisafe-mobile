@@ -68,6 +68,38 @@ export default function RootLayout() {
           presentation: 'modal',
           headerTitleAlign: 'center',
         }} />
+        <Stack.Screen name="emergency-call-settings" options={{ 
+          title: 'Emergency Call Settings',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Safety Settings',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="user-guide" options={{ 
+          title: 'User Guide',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Help & Support',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="safety-tips" options={{ 
+          title: 'Safety Tips',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Help & Support',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
+        <Stack.Screen name="community-forum" options={{ 
+          title: 'Community Forum',
+          headerStyle: { backgroundColor: '#1E40AF' },
+          headerTintColor: '#FFFFFF',
+          headerBackTitle: 'Help & Support',
+          presentation: 'modal',
+          headerTitleAlign: 'center',
+        }} />
       </Stack>
       <StatusBar style="light" />
     </QueryClientProvider>
