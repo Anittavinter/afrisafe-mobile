@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "AfriSafe",
-    "slug": "AfriSafe",
+    "slug": "afrisafe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,23 +10,50 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1E3A8A"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.afrisafe.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#1E40AF"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.afrisafe.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "VIBRATE",
+        "CALL_PHONE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-secure-store"
-    ]
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#1E3A8A",
+          "image": "./assets/splash-icon.png",
+          "dark": {
+            "backgroundColor": "#1E3A8A",
+            "image": "./assets/splash-icon.png"
+          }
+        }
+      ]
+    ],
+    "scheme": "afrisafe",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }
