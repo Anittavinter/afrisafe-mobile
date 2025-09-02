@@ -170,10 +170,10 @@ export default function AboutAfriSafe() {
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Made with ❤️ for African women's safety
+          Made  for African women's safety
         </Text>
         <Text style={styles.copyright}>
-          © 2024 AfriSafe. All rights reserved.
+          © 2025 AfriSafe. All rights reserved.
         </Text>
       </View>
     </ScrollView>

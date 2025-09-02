@@ -7,63 +7,254 @@ export default function CommunityForum() {
   const [searchText, setSearchText] = useState('');
 
   const forumCategories = [
-    { title: "General Safety", icon: "shield", color: "#1E40AF", count: 45 },
-    { title: "Success Stories", icon: "heart", color: "#DC2626", count: 23 },
-    { title: "Support Network", icon: "people", color: "#059669", count: 67 },
-    { title: "Safety Tips", icon: "bulb", color: "#F59E0B", count: 34 },
-    { title: "Resources", icon: "library", color: "#7C3AED", count: 28 }
+    { title: "General Safety", icon: "shield-outline", color: "#1E40AF", count: 3 },
+    { title: "Success Stories", icon: "heart-outline", color: "#DC2626", count: 3 },
+    { title: "Support Network", icon: "people-outline", color: "#059669", count: 3 },
+    { title: "Safety Tips", icon: "bulb-outline", color: "#F59E0B", count: 3 },
+    { title: "Resources", icon: "library-outline", color: "#7C3AED", count: 3 }
   ];
 
   const forumPosts = [
+    // Success Stories
     {
       id: 1,
-      title: "How AfriSafe helped me feel safer walking home",
+      title: "AfriSafe helped me walk home safely",
       author: "SafeWoman123",
       category: "Success Stories",
       replies: 12,
-      timeAgo: "2 hours ago",
-      preview: "I wanted to share how the panic button feature gave me confidence during my evening commute...",
+      timeAgo: "2h ago",
+      quickPreview: "Panic button gave me confidence during evening commute",
+      keyPoints: [
+        "• Walking home at 8 PM, noticed someone following",
+        "• Used stealth mode and location sharing",
+        "• Panic button ready - felt protected",
+        "• Person turned away, app gave confidence"
+      ],
       isHot: true
     },
     {
+      id: 6,
+      title: "Stealth mode saved me in dangerous situation",
+      author: "GratefulSister",
+      category: "Success Stories",
+      replies: 24,
+      timeAgo: "1d ago",
+      quickPreview: "Calculator disguise helped me call for help discreetly",
+      keyPoints: [
+        "• Felt unsafe but couldn't openly use phone",
+        "• Entered secret code 9118 in calculator",
+        "• Sent silent alert with location",
+        "• Emergency contacts called immediately"
+      ],
+      isHot: true
+    },
+    {
+      id: 7,
+      title: "Family has peace of mind with AfriSafe",
+      author: "ProudDaughter",
+      category: "Success Stories",
+      replies: 8,
+      timeAgo: "3d ago",
+      quickPreview: "Check-in feature keeps parents worry-free",
+      keyPoints: [
+        "• Parents worried about late university studies",
+        "• Check-in feature gives peace of mind",
+        "• Forgot once - they got alert and called",
+        "• Family feels safer knowing I have app"
+      ]
+    },
+
+    // Safety Tips
+    {
       id: 2,
-      title: "Best practices for emergency contacts setup",
+      title: "Emergency contacts setup guide",
       author: "Community_Helper",
       category: "Safety Tips",
       replies: 8,
-      timeAgo: "4 hours ago",
-      preview: "Here are some tips for choosing and setting up your emergency contacts effectively...",
+      timeAgo: "4h ago",
+      quickPreview: "Best practices for choosing emergency contacts",
+      keyPoints: [
+        "• Mix family, friends, work colleagues",
+        "• Choose people usually available",
+        "• Different locations for coverage",
+        "• Test system regularly with contacts"
+      ],
       isPinned: true
     },
     {
-      id: 3,
-      title: "Local women's shelters in Nairobi - Updated list",
-      author: "NairobiSafe",
-      category: "Resources",
+      id: 8,
+      title: "Public transport safety essentials",
+      author: "SafeCommuter",
+      category: "Safety Tips",
       replies: 15,
-      timeAgo: "1 day ago",
-      preview: "Comprehensive list of verified safe spaces and women's shelters in Nairobi area...",
-      isHot: false
+      timeAgo: "6h ago",
+      quickPreview: "Stay safe on matatus and buses in Kenya",
+      keyPoints: [
+        "• Sit near driver/conductor when possible",
+        "• Keep phone charged, AfriSafe ready",
+        "• Don't display expensive items",
+        "• Trust instincts - get off if uncomfortable"
+      ]
     },
     {
-      id: 4,
-      title: "Support group meeting this weekend",
-      author: "SupportNetwork",
-      category: "Support Network",
-      replies: 6,
-      timeAgo: "2 days ago",
-      preview: "Join us for a safe space discussion about personal safety and community support...",
-      isHot: false
+      id: 9,
+      title: "Recognizing dangerous situations",
+      author: "SafetyExpert_KE",
+      category: "Safety Tips",
+      replies: 31,
+      timeAgo: "2d ago",
+      quickPreview: "Trust your instincts and stay alert",
+      keyPoints: [
+        "• Watch for people following you",
+        "• Notice unusual behavior patterns",
+        "• Always have exit plan ready",
+        "• Use stealth mode when uncertain"
+      ],
+      isHot: true
     },
+
+    // General Safety
     {
       id: 5,
-      title: "How to stay safe during night travel",
+      title: "Night travel safety guide",
       author: "SafetyFirst",
       category: "General Safety",
       replies: 20,
-      timeAgo: "3 days ago",
-      preview: "Essential tips for women traveling at night in urban areas...",
+      timeAgo: "3d ago",
+      quickPreview: "Essential tips for traveling after dark",
+      keyPoints: [
+        "• Plan route in advance, share with contacts",
+        "• Use well-lit main roads only",
+        "• Keep phone charged, location sharing on",
+        "• Travel with others when possible"
+      ],
       isHot: true
+    },
+    {
+      id: 10,
+      title: "University student safety checklist",
+      author: "CampusSafe",
+      category: "General Safety",
+      replies: 18,
+      timeAgo: "1d ago",
+      quickPreview: "Campus safety for Nairobi universities",
+      keyPoints: [
+        "• Avoid isolated areas like empty parking lots",
+        "• Use buddy system for late classes",
+        "• Know campus security numbers",
+        "• Report suspicious activity immediately"
+      ]
+    },
+    {
+      id: 11,
+      title: "Workplace safety for women",
+      author: "WorkplaceSafety",
+      category: "General Safety",
+      replies: 12,
+      timeAgo: "4d ago",
+      quickPreview: "Know your rights at work",
+      keyPoints: [
+        "• Report harassment to HR immediately",
+        "• Keep detailed records of incidents",
+        "• Share work schedule with contacts",
+        "• Know emergency exits and procedures"
+      ]
+    },
+
+    // Support Network
+    {
+      id: 4,
+      title: "Weekend support group meeting",
+      author: "SupportNetwork",
+      category: "Support Network",
+      replies: 6,
+      timeAgo: "2d ago",
+      quickPreview: "Safe space discussion this Saturday",
+      keyPoints: [
+        "• Saturday 2 PM at community center",
+        "• Share safety experiences and tips",
+        "• Learn AfriSafe features together",
+        "• Light refreshments provided"
+      ]
+    },
+    {
+      id: 12,
+      title: "Finding your safety buddy",
+      author: "SafetyBuddies",
+      category: "Support Network",
+      replies: 22,
+      timeAgo: "3d ago",
+      quickPreview: "Buddy system for neighborhood safety",
+      keyPoints: [
+        "• Find partner who knows your routine",
+        "• Exchange emergency contacts",
+        "• Use check-in features together",
+        "• Meet regularly to discuss safety"
+      ],
+      isHot: true
+    },
+    {
+      id: 13,
+      title: "New to Nairobi safety networking",
+      author: "NewInNairobi",
+      category: "Support Network",
+      replies: 14,
+      timeAgo: "5d ago",
+      quickPreview: "Building connections when you're new in town",
+      keyPoints: [
+        "• Join local women's groups",
+        "• Get to know neighbors and local shops",
+        "• Find reliable transport and safe routes",
+        "• Connect with other AfriSafe users nearby"
+      ]
+    },
+
+    // Resources
+    {
+      id: 3,
+      title: "Nairobi women's shelters directory",
+      author: "NairobiSafe",
+      category: "Resources",
+      replies: 15,
+      timeAgo: "1d ago",
+      quickPreview: "Verified safe spaces and emergency shelters",
+      keyPoints: [
+        "• 24/7 support available",
+        "• All facilities verified for safety",
+        "• Includes contact numbers and addresses",
+        "• Help is always available"
+      ]
+    },
+    {
+      id: 14,
+      title: "Free legal aid for GBV survivors",
+      author: "LegalAid_Kenya",
+      category: "Resources",
+      replies: 28,
+      timeAgo: "2d ago",
+      quickPreview: "Legal support services in Kenya",
+      keyPoints: [
+        "• Free legal aid societies available",
+        "• Pro bono lawyers for GBV cases",
+        "• Know your legal rights",
+        "• All services are confidential"
+      ],
+      isPinned: true
+    },
+    {
+      id: 15,
+      title: "Mental health support directory",
+      author: "MentalHealthKE",
+      category: "Resources",
+      replies: 19,
+      timeAgo: "4d ago",
+      quickPreview: "Counseling and therapy services",
+      keyPoints: [
+        "• Affordable therapy options available",
+        "• Trauma specialists for women",
+        "• Support groups across Kenya",
+        "• Sliding scale fees offered"
+      ]
     }
   ];
 
@@ -73,7 +264,7 @@ export default function CommunityForum() {
       onPress={() => onPress(index)}
     >
       <Ionicons
-        name={category.icon}
+        name={category.icon as any}
         size={16}
         color={isActive ? category.color : '#9CA3AF'}
       />
@@ -91,56 +282,101 @@ export default function CommunityForum() {
     </TouchableOpacity>
   );
 
-  const PostCard = ({ post }: any) => (
-    <TouchableOpacity
-      style={styles.postCard}
-      onPress={() => Alert.alert('Coming Soon', 'Full forum functionality will be available in the next update.')}
-    >
-      <View style={styles.postHeader}>
-        <View style={styles.postTitleContainer}>
-          {post.isPinned && <Ionicons name="pin" size={14} color="#F59E0B" style={styles.postIcon} />}
-          {post.isHot && <Ionicons name="flame" size={14} color="#DC2626" style={styles.postIcon} />}
-          <Text style={styles.postTitle} numberOfLines={2}>
-            {post.title}
+  const PostCard = ({ post }: any) => {
+    const handlePostPress = () => {
+      Alert.alert(
+        post.title,
+        '', // Empty message to show custom content
+        [
+          { text: 'Close', style: 'cancel' },
+          { 
+            text: 'View Full Discussion', 
+            onPress: () => Alert.alert(
+              'Full Discussion', 
+              'Complete thread with replies and community interaction will be available soon.'
+            ) 
+          }
+        ],
+        {
+          userInterfaceStyle: 'light'
+        }
+      );
+    };
+
+    const handleQuickView = () => {
+      const keyPointsText = post.keyPoints.join('\n');
+      Alert.alert(
+        post.title,
+        `${post.quickPreview}\n\n${keyPointsText}`,
+        [
+          { text: 'Close', style: 'cancel' },
+          { 
+            text: 'Full Thread', 
+            onPress: () => Alert.alert('Full Thread', 'Complete discussion with all replies coming soon!') 
+          }
+        ]
+      );
+    };
+
+    return (
+      <TouchableOpacity
+        style={styles.postCard}
+        onPress={handleQuickView}
+      >
+        <View style={styles.postHeader}>
+          <View style={styles.postTitleContainer}>
+            {post.isPinned && <Ionicons name="pin-outline" size={14} color="#F59E0B" style={styles.postIcon} />}
+            {post.isHot && <Ionicons name="flame-outline" size={14} color="#DC2626" style={styles.postIcon} />}
+            <Text style={styles.postTitle} numberOfLines={1}>
+              {post.title}
+            </Text>
+          </View>
+          <Text style={styles.categoryBadge}>{post.category}</Text>
+        </View>
+        
+        <Text style={styles.quickPreview} numberOfLines={1}>
+          {post.quickPreview}
+        </Text>
+
+        <View style={styles.keyPointsContainer}>
+          <Text style={styles.keyPointsTitle}>Key Points:</Text>
+          <Text style={styles.keyPointsText} numberOfLines={2}>
+            {post.keyPoints.slice(0, 2).join('  ')}
           </Text>
         </View>
-        <Text style={styles.categoryBadge}>{post.category}</Text>
-      </View>
-      
-      <Text style={styles.postPreview} numberOfLines={2}>
-        {post.preview}
-      </Text>
-      
-      <View style={styles.postFooter}>
-        <View style={styles.postAuthor}>
-          <Ionicons name="person-circle" size={16} color="#6B7280" />
-          <Text style={styles.authorText}>{post.author}</Text>
-        </View>
-        <View style={styles.postStats}>
-          <View style={styles.statItem}>
-            <Ionicons name="chatbubble" size={14} color="#6B7280" />
-            <Text style={styles.statText}>{post.replies}</Text>
+        
+        <View style={styles.postFooter}>
+          <View style={styles.postAuthor}>
+            <Ionicons name="person-circle-outline" size={16} color="#6B7280" />
+            <Text style={styles.authorText}>{post.author}</Text>
           </View>
-          <Text style={styles.timeText}>{post.timeAgo}</Text>
+          <View style={styles.postStats}>
+            <View style={styles.statItem}>
+              <Ionicons name="chatbubble-outline" size={14} color="#6B7280" />
+              <Text style={styles.statText}>{post.replies}</Text>
+            </View>
+            <Text style={styles.timeText}>{post.timeAgo}</Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  };
 
   const handleJoinCommunity = () => {
     Alert.alert(
-      'Join Community',
-      'Community features will be fully available soon. You\'ll be notified when registration opens.',
+      'Join AfriSafe Community',
+      'Connect with thousands of women across Kenya and Africa. Share experiences, get safety tips, and build your support network.',
       [
-        { text: 'OK', style: 'default' },
-        { text: 'Notify Me', onPress: () => Alert.alert('Success', 'You\'ll be notified when community features are available.') }
+        { text: 'Not Now', style: 'cancel' },
+        { text: 'Notify When Ready', onPress: () => Alert.alert('Subscribed!', 'You\'ll be notified when full community features are available.') }
       ]
     );
   };
 
-  const filteredPosts = forumPosts.filter(post =>
-    selectedCategory === 0 || post.category === forumCategories[selectedCategory]?.title
-  );
+  const filteredPosts = forumPosts.filter(post => {
+    if (selectedCategory === 0) return true;
+    return post.category === forumCategories[selectedCategory - 1]?.title;
+  });
 
   return (
     <View style={styles.container}>
@@ -153,7 +389,7 @@ export default function CommunityForum() {
 
       <View style={styles.searchContainer}>
         <View style={styles.searchBar}>
-          <Ionicons name="search" size={20} color="#9CA3AF" />
+          <Ionicons name="search-outline" size={20} color="#9CA3AF" />
           <TextInput
             style={styles.searchInput}
             placeholder="Search discussions..."
@@ -170,7 +406,7 @@ export default function CommunityForum() {
           contentContainerStyle={styles.categoryScroll}
         >
           <CategoryTab
-            category={{ title: "All", icon: "apps", color: "#6B7280", count: 197 }}
+            category={{ title: "All", icon: "apps-outline", color: "#6B7280", count: 15 }}
             index={-1}
             isActive={selectedCategory === 0}
             onPress={() => setSelectedCategory(0)}
@@ -190,55 +426,55 @@ export default function CommunityForum() {
       <ScrollView style={styles.content}>
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
-            <Ionicons name="people" size={24} color="#1E40AF" />
+            <Ionicons name="people-outline" size={24} color="#1E40AF" />
             <Text style={styles.statNumber}>2,847</Text>
-            <Text style={styles.statLabel}>Community Members</Text>
+            <Text style={styles.statLabel}>Members</Text>
           </View>
           <View style={styles.statCard}>
-            <Ionicons name="chatbubbles" size={24} color="#059669" />
+            <Ionicons name="chatbubbles-outline" size={24} color="#059669" />
             <Text style={styles.statNumber}>1,234</Text>
-            <Text style={styles.statLabel}>Active Discussions</Text>
+            <Text style={styles.statLabel}>Discussions</Text>
           </View>
           <View style={styles.statCard}>
-            <Ionicons name="heart" size={24} color="#DC2626" />
+            <Ionicons name="heart-outline" size={24} color="#DC2626" />
             <Text style={styles.statNumber}>567</Text>
             <Text style={styles.statLabel}>Success Stories</Text>
           </View>
         </View>
 
         <View style={styles.featuredSection}>
-          <Text style={styles.sectionTitle}>Featured Discussions</Text>
+          <Text style={styles.sectionTitle}>
+            {selectedCategory === 0 ? 'Featured Discussions' : 
+             `${forumCategories[selectedCategory - 1]?.title} Discussions`}
+          </Text>
           {filteredPosts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
         </View>
 
         <View style={styles.communityInfo}>
-          <Ionicons name="information-circle" size={20} color="#1E40AF" />
+          <Ionicons name="shield-checkmark-outline" size={20} color="#059669" />
           <View style={styles.infoContent}>
-            <Text style={styles.infoTitle}>Community Guidelines</Text>
+            <Text style={styles.infoTitle}>Safe Space Promise</Text>
             <Text style={styles.infoText}>
-              • Be respectful and supportive{'\n'}
-              • Share experiences to help others{'\n'}
-              • Protect privacy - no personal details{'\n'}
-              • Report inappropriate content
+              Moderated 24/7 • Supportive environment • Privacy protected
             </Text>
           </View>
         </View>
 
         <TouchableOpacity style={styles.joinButton} onPress={handleJoinCommunity}>
-          <Ionicons name="person-add" size={20} color="#FFFFFF" />
-          <Text style={styles.joinButtonText}>Join Community (Coming Soon)</Text>
+          <Ionicons name="person-add-outline" size={20} color="#FFFFFF" />
+          <Text style={styles.joinButtonText}>Join Community</Text>
         </TouchableOpacity>
 
-        <View style={styles.safetyNote}>
-          <Ionicons name="shield-checkmark" size={20} color="#059669" />
-          <View style={styles.safetyContent}>
-            <Text style={styles.safetyTitle}>Safe Space Promise</Text>
-            <Text style={styles.safetyText}>
-              Our community is moderated 24/7 to ensure a safe, supportive environment for all women.
-            </Text>
-          </View>
+        <View style={styles.guidelines}>
+          <Text style={styles.guidelinesTitle}>Community Guidelines</Text>
+          <Text style={styles.guidelinesText}>
+            • Be respectful and supportive{'\n'}
+            • Share experiences to help others{'\n'}
+            • Protect privacy - no personal details{'\n'}
+            • Report inappropriate content
+          </Text>
         </View>
       </ScrollView>
     </View>
@@ -407,11 +643,28 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
   },
-  postPreview: {
+  quickPreview: {
     fontSize: 14,
     color: '#6B7280',
-    lineHeight: 20,
-    marginBottom: 12,
+    marginBottom: 10,
+    fontStyle: 'italic',
+  },
+  keyPointsContainer: {
+    backgroundColor: '#F8F9FA',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  keyPointsTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#374151',
+    marginBottom: 4,
+  },
+  keyPointsText: {
+    fontSize: 12,
+    color: '#6B7280',
+    lineHeight: 16,
   },
   postFooter: {
     flexDirection: 'row',
@@ -446,14 +699,14 @@ const styles = StyleSheet.create({
     color: '#9CA3AF',
   },
   communityInfo: {
-    backgroundColor: '#EFF6FF',
+    backgroundColor: '#ECFDF5',
     flexDirection: 'row',
     padding: 16,
     marginHorizontal: 20,
     marginTop: 20,
     borderRadius: 12,
     borderLeftWidth: 4,
-    borderLeftColor: '#1E40AF',
+    borderLeftColor: '#059669',
   },
   infoContent: {
     marginLeft: 12,
@@ -462,14 +715,12 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#1E40AF',
-    marginBottom: 6,
+    color: '#059669',
+    marginBottom: 4,
   },
   infoText: {
-    fontSize: 13,
-    color: '#1E40AF',
-    opacity: 0.8,
-    lineHeight: 18,
+    fontSize: 12,
+    color: '#047857',
   },
   joinButton: {
     backgroundColor: '#1E40AF',
@@ -487,29 +738,26 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 8,
   },
-  safetyNote: {
-    backgroundColor: '#ECFDF5',
-    flexDirection: 'row',
+  guidelines: {
+    backgroundColor: '#EFF6FF',
     padding: 16,
     marginHorizontal: 20,
     marginTop: 12,
     marginBottom: 30,
     borderRadius: 12,
     borderLeftWidth: 4,
-    borderLeftColor: '#059669',
+    borderLeftColor: '#1E40AF',
   },
-  safetyContent: {
-    marginLeft: 12,
-    flex: 1,
-  },
-  safetyTitle: {
+  guidelinesTitle: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#059669',
-    marginBottom: 4,
+    color: '#1E40AF',
+    marginBottom: 6,
   },
-  safetyText: {
-    fontSize: 13,
-    color: '#047857',
+  guidelinesText: {
+    fontSize: 12,
+    color: '#1E40AF',
+    opacity: 0.8,
+    lineHeight: 16,
   },
 });
